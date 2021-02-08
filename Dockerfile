@@ -26,7 +26,7 @@ RUN pacman -S --noconfirm \
     python-pip \
     which \
     vim \
-&& yes | pacman -Scc || true
+&& yes | pacman -Scc
 
 RUN pip install -U pip
 RUN pip install --no-cache $ansible_packages
