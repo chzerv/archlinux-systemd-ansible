@@ -7,6 +7,8 @@ ENV container docker
 # Install Ansible and related packages via pip so we get the latest version.
 ENV ansible_packages "ansible"
 
+RUN mkdir -p /var/lib/pacman
+
 RUN pacman -Syu --noconfirm
 
 RUN pacman -S --noconfirm \
