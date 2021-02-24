@@ -7,6 +7,14 @@ ENV container docker
 # Install Ansible and related packages via pip so we get the latest version.
 ENV ansible_packages "ansible"
 
+# Temporary work-around for https://gitlab.archlinux.org/archlinux/archlinux-docker/-/issues/56
+RUN if [[ $(uname -m) = "x86_64" ]]; then \
+      patched_glibc=glibc-linux4-2.33-4-x86_64.pkg.tar.zst && \
+      curl -LO "https://repo.archlinuxcn.org/x86_64/$patched_glibc" && \
+      bsdtar -C / -xvf "$patched_glibc" && \
+      sed -i "s/#\(IgnorePkg   =\)/\1 glibc/" /etc/pacman.conf; \
+    fi
+
 RUN pacman -Syu --noconfirm
 
 RUN pacman -S --noconfirm \
