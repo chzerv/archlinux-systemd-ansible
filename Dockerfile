@@ -4,7 +4,7 @@ LABEL maintainer "Chris Zervakis"
 # Avoid things that systemd does on actual hardware.
 ENV container docker
 
-# Install Ansible and related packages via pip so we get the latest version.
+# Install Ansible via pip.
 ENV ansible_packages "ansible"
 
 # Temporary work-around for https://gitlab.archlinux.org/archlinux/archlinux-docker/-/issues/56
