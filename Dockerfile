@@ -15,6 +15,9 @@ RUN if [[ $(uname -m) = "x86_64" ]]; then \
       sed -i "s/#\(IgnorePkg   =\)/\1 glibc/" /etc/pacman.conf; \
     fi
 
+# Fetch an updated mirrorlist
+curl -s "https://archlinux.org/mirrorlist/?country=GB&country=DE&country=US&protocol=https&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d' > /etc/pacman.d/mirrorlist
+
 RUN pacman -Syu --noconfirm
 
 RUN pacman -S --noconfirm \
