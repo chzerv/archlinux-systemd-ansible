@@ -18,9 +18,7 @@ RUN if [[ $(uname -m) = "x86_64" ]]; then \
 # Fetch an updated mirrorlist
 RUN curl -s "https://archlinux.org/mirrorlist/?country=GB&country=DE&country=US&protocol=https&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d' > /etc/pacman.d/mirrorlist
 
-RUN pacman -Syu --noconfirm
-
-RUN pacman -S --noconfirm \
+RUN pacman -Sy --noconfirm \
     sudo \
     systemd \
   && \
