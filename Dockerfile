@@ -41,6 +41,6 @@ RUN pip install -U pip
 RUN pip install --no-cache $ansible_packages
 
 VOLUME ["/sys/fs/cgroup"]
-CMD [ "/lib/systemd/systemd" ]
+CMD [ "/sbin/init" ]
 
 
