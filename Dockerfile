@@ -7,14 +7,6 @@ ENV container docker
 # Install Ansible via pip.
 ENV ansible_packages "ansible"
 
-# Temporary work-around for https://gitlab.archlinux.org/archlinux/archlinux-docker/-/issues/56
-RUN if [[ $(uname -m) = "x86_64" ]]; then \
-      patched_glibc=glibc-linux4-2.33-5-x86_64.pkg.tar.zst && \
-      curl -LO "https://repo.archlinuxcn.org/x86_64/$patched_glibc" && \
-      bsdtar -C / -xvf "$patched_glibc" && \
-      sed -i "s/#\(IgnorePkg   =\)/\1 glibc/" /etc/pacman.conf; \
-    fi
-
 # Fetch an updated mirrorlist
 RUN curl -s "https://archlinux.org/mirrorlist/?country=GB&country=DE&country=US&protocol=https&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d' > /etc/pacman.d/mirrorlist
 
