@@ -4,9 +4,6 @@ LABEL maintainer "Chris Zervakis"
 # Avoid things that systemd does on actual hardware.
 ENV container docker
 
-# Install Ansible via pip.
-ENV ansible_packages "ansible"
-
 # Fetch an updated mirrorlist
 RUN curl -s "https://archlinux.org/mirrorlist/?country=GB&country=DE&country=US&protocol=https&use_mirror_status=on" | sed -e 's/^#Server/Server/' -e '/^#/d' > /etc/pacman.d/mirrorlist
 
@@ -23,14 +20,10 @@ RUN pacman -Sy --noconfirm \
     rm -vf /lib/systemd/system/basic.target.wants/*;
 
 RUN pacman -S --noconfirm \
-    python \
-    python-pip \
     which \
     vim \
+    ansible \
 && yes | pacman -Scc
-
-RUN pip install -U pip
-RUN pip install --no-cache $ansible_packages
 
 VOLUME ["/sys/fs/cgroup"]
 CMD [ "/sbin/init" ]
